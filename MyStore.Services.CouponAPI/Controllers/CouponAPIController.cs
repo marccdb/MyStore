@@ -1,33 +1,26 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using MyStore.Services.CouponAPI.Data;
+using MyStore.Services.CouponAPI.Data.Repository.Interfaces;
 using MyStore.Services.CouponAPI.Models.DTOs;
 
 namespace MyStore.Services.CouponAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CouponAPIController(AppDbContext context, IMapper mapper) : ControllerBase
+    public class CouponAPIController(ICouponRepository iCouponRepository, IMapper mapper) : ControllerBase
     {
 
-        private readonly AppDbContext _context = context;
+        private readonly ICouponRepository _iCouponRepository = iCouponRepository;
         private readonly IMapper _mapper = mapper;
 
         [HttpGet]
-        public IActionResult GetCouponList()
+        public async Task<IActionResult> GetCouponList()
         {
             try
             {
-                var result = _context.Coupons.ToList();
-                var returnDto = _mapper.Map<List<CouponDto>>(result);
-                if (result != null)
-                {
-                    return Ok(returnDto);
-                }
-                else
-                {
-                    return NotFound();
-                }
+                var listOfCoupons = await _iCouponRepository.GetListOfCoupons();
+                var returnDto = _mapper.Map<List<CouponDto>>(listOfCoupons);
+                return Ok(returnDto);
             }
             catch (Exception exception)
             {
@@ -36,20 +29,13 @@ namespace MyStore.Services.CouponAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetCouponById(int id)
+        public async Task<IActionResult> GetCouponById(int id)
         {
             try
             {
-                var result = _context.Coupons.FirstOrDefault(x => x.CouponId == id);
-                var returnDto = _mapper.Map<CouponDto>(result);
-                if (result != null)
-                {
-                    return Ok(returnDto);
-                }
-                else
-                {
-                    return NotFound();
-                }
+                var coupon = await _iCouponRepository.GetACouponById(id);
+                var returnDto = _mapper.Map<CouponDto>(coupon);
+                return Ok(returnDto);
             }
             catch (Exception exception)
             {

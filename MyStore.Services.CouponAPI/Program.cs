@@ -1,5 +1,6 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using MyStore.Services.CouponAPI;
 using MyStore.Services.CouponAPI.Data;
 using MyStore.Services.CouponAPI.Models.Configuration;
 
@@ -11,6 +12,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//Add Dependency Injection Services
+builder.Services.AddCouponService();
+
 //EF Configuration
 builder.Services.AddDbContext<AppDbContext>(option =>
 {
@@ -21,7 +25,6 @@ builder.Services.AddDbContext<AppDbContext>(option =>
 IMapper mapper = AutoMapperConfig.RegisterMaps().CreateMapper();
 builder.Services.AddSingleton(mapper);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
 
 
 var app = builder.Build();
