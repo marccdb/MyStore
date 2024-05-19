@@ -52,7 +52,7 @@ namespace MyStore.Services.CouponAPI.Migrations
                         {
                             CouponId = 1,
                             CouponCode = "10OFF",
-                            CreatedAt = new DateTime(2024, 5, 12, 16, 38, 58, 957, DateTimeKind.Local).AddTicks(7901),
+                            CreatedAt = new DateTime(2024, 5, 19, 18, 24, 49, 538, DateTimeKind.Local).AddTicks(6527),
                             DiscountAmount = 10.0,
                             MinAmount = 50
                         },
@@ -60,7 +60,7 @@ namespace MyStore.Services.CouponAPI.Migrations
                         {
                             CouponId = 2,
                             CouponCode = "20OFF",
-                            CreatedAt = new DateTime(2024, 5, 12, 16, 38, 58, 957, DateTimeKind.Local).AddTicks(7946),
+                            CreatedAt = new DateTime(2024, 5, 19, 18, 24, 49, 538, DateTimeKind.Local).AddTicks(6581),
                             DiscountAmount = 20.0,
                             MinAmount = 100
                         },
@@ -68,7 +68,7 @@ namespace MyStore.Services.CouponAPI.Migrations
                         {
                             CouponId = 3,
                             CouponCode = "50OFF",
-                            CreatedAt = new DateTime(2024, 5, 12, 16, 38, 58, 957, DateTimeKind.Local).AddTicks(7961),
+                            CreatedAt = new DateTime(2024, 5, 19, 18, 24, 49, 538, DateTimeKind.Local).AddTicks(6595),
                             DiscountAmount = 50.0,
                             MinAmount = 300
                         });

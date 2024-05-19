@@ -16,9 +16,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddCouponService();
 
 //EF Configuration
-builder.Services.AddDbContext<AppDbContext>(option =>
+builder.Services.AddDbContext<AppDbContext>(options =>
 {
-    option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
 //Automapper Configuration
