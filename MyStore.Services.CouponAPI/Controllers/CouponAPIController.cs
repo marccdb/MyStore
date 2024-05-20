@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using MyStore.Services.CouponAPI.Data.Repository.Interfaces;
+using MyStore.Services.CouponAPI.Models;
 using MyStore.Services.CouponAPI.Models.DTOs;
 
 namespace MyStore.Services.CouponAPI.Controllers
@@ -42,5 +43,37 @@ namespace MyStore.Services.CouponAPI.Controllers
                 return BadRequest(exception.Message);
             }
         }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateCoupon([FromBody] CouponDto couponDto)
+        {
+            try
+            {
+                var newCoupon = _mapper.Map<Coupon>(couponDto);
+                await _iCouponRepository.CreateNewCoupon(newCoupon);
+                return Created();
+            }
+            catch (Exception exception)
+            {
+                return BadRequest(exception.Message);
+            }
+
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCoupon(int id)
+        {
+            try
+            {
+                await _iCouponRepository.DeleteCouponById(id);
+                return Ok("Object was deleted");
+            }
+            catch (Exception exception)
+            {
+                return BadRequest(exception.Message);
+            }
+        }
+
+
     }
 }
