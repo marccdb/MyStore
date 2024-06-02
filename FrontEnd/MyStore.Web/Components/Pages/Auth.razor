@@ -1,0 +1,58 @@
+﻿@page "/auth"
+@inject IAuthService _authService;
+
+<PageTitle>MyStore</PageTitle>
+
+
+<EditForm method="post" Model="loginDTO" OnValidSubmit="Login" FormName="login-form" Enhance>
+
+    <DataAnnotationsValidator />
+    <ValidationSummary class="text-danger" />
+    <h3>LOGIN</h3>
+    <label for="email" class="form-label">Email</label>
+    <InputText type="email" id="email" @bind-Value="loginDTO.Email" />
+    <ValidationMessage For="() => loginDTO.Email" class="text-danger" />
+
+    <label for="password" class="form-label">Password</label>
+    <InputText type="password" id="password" @bind-Value="loginDTO.Password" />
+    <ValidationMessage For="() => loginDTO.Email" class="text-danger" />
+
+    <button class="btn btn-primary" type="submit">SEND</button>
+</EditForm>
+<br />
+<EditForm method="post" Model="registerDTO" OnValidSubmit="Register" FormName="register-form" Enhance>
+
+    <DataAnnotationsValidator />
+    <ValidationSummary class="text-danger" />
+    <h3>REGISTER</h3>
+    <label for="email" class="form-label">Email</label>
+    <InputText type="email" id="email" @bind-Value="registerDTO.Email" />
+    <ValidationMessage For="() => registerDTO.Email" class="text-danger" />
+
+    <label for="password" class="form-label">Password</label>
+    <InputText type="password" id="password" @bind-Value="registerDTO.Password" />
+    <ValidationMessage For="() => registerDTO.Password" class="text-danger" />
+
+    <button class="btn btn-danger" type="submit">SEND</button>
+</EditForm>
+
+
+@code {
+    [SupplyParameterFromForm(FormName = "login-form")]
+    public LoginDTO loginDTO { get; set; } = new();
+
+    [SupplyParameterFromForm(FormName = "register-form")]
+    public RegisterDTO registerDTO { get; set; } = new();
+
+
+    private void Login()
+    {
+        var response = _authService.LoginAsync(loginDTO);
+    }
+
+    private async Task Register()
+    {
+        await _authService.RegisterAsync(registerDTO);
+    }
+
+}
