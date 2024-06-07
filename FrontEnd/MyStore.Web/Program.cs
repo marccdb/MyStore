@@ -1,13 +1,18 @@
 using MyStore.Web;
 using MyStore.Web.Components;
 
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.AddServiceDefaults();
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 builder.Services.AddScoped<IAuthService, AuthService>();
+
+//builder.AddServiceDefaults();
 
 var app = builder.Build();
 
@@ -23,6 +28,7 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 app.UseAntiforgery();
+//app.MapDefaultEndpoints();
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
